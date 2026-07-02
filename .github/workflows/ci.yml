@@ -11,9 +11,20 @@ jobs:
     runs-on: ubuntu-latest
     permissions:
       contents: read
+      pull-requests: write
     steps:
       - uses: actions/checkout@v4
-      - run: npm test
+      - name: Run tests with report
+        run: |
+          mkdir -p results
+          npm test | tee results/test-report.txt
+          echo "commit": ${{ github.sha }} > results/test-report.txt
+          echo "run:" ${{ github.run_id }} >> results/test-report.txt
+      - name: Upload test report
+        uses: actions/upload-artifact@v4
+        with:
+          name: test-results -${{ github.sha }}
+          path: results/
 
   security-analysis:
     runs-on: ubuntu-latest
