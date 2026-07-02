@@ -1,0 +1,25 @@
+name: Agent Handogf Demo
+
+on: 
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  plan:
+    runs-on: ubuntu-latest
+    outputs:
+      plan: ${{ steps.generate_plan.outputs.plan }}
+      risk: ${{ steps.generate_plan.outputs.risk }}
+    steps:
+      - id: generate_plan
+        run: |
+          echo "plan=update dependency X to patched version" >> "$GITHUB_OUTPUT"
+          echo "risk=medium" >> "$GITHUB_OUTPUT"
+  implement:
+      needs: plan
+      runs-on: ubuntu-latest
+      steps:
+          - run: |
+              echo "Recieved plan: ${{ needs.plan.outputs.plan }}"
+              echo "Risk level: {{ needs.plan.outputs.risk }}"
+              echo "Executing within approved plan scope only..."
