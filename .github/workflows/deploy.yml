@@ -13,5 +13,4 @@ jobs:
       name: production
     steps:
       - uses: actions/checkout@v4
-      - run: echo "Deploying commit ${{ github.sha }}" to production..."
-      
+      - run: echo "Deploying commit ${{ github.sha }} to production..."
