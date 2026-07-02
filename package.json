@@ -1,0 +1,5 @@
+{
+"name": "agent-sdlc-lab",
+"version" : "1.0.0",
+"scripts": { "test": "node src/app.test.js" }
+}
