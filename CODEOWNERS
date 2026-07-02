@@ -1,0 +1,10 @@
+# File: CODEOWNERS
+# Personal-account version. In an organization these would be teams:
+#   /infra/              @platform-team
+#   /.github/workflows/  @platform-team
+#   /security/           @security-team
+#   *                    @core-team
+ 
+/infra/              @ShivanandSingh
+/.github/workflows/  @ShivanandSingh
+*                    @ShivanandSingh

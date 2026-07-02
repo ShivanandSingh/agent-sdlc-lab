@@ -1,0 +1,25 @@
+# File: .github/workflows/plan-gate.yml
+name: Plan Gate 
+
+on: 
+  pull_request:
+    types: [opened, edited, synchronize]
+    branches: [ main ]
+permissions: {}
+jobs:
+  require-plan:
+      runs-on: ubuntu-latest
+      steps: 
+        - name: Require structured plan in PR body
+          env:
+            PR_BODY: ${{ github.event.pull_request.body }}
+          run: |
+            if ! echo "$PR_BODY" | grep -q '## Plan'; then
+              echo "::error::PR body must contain a '## Plan' section."
+              exit 1
+            fi 
+            if ! echo "$PR_BODY" | grep -qi "Success criteria"; then
+              echo "::error::Plan must define success criteria."
+              exit 1
+            fi 
+            echo "Structured plan found."
